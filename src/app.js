@@ -22,7 +22,7 @@ app.use(
 app.use("/solar-api/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(authenticateToken);
 
-app.use("/nino-api", require("./routes"));
+app.use("/solar-api", require("./routes"));
 
 app.use(routeNotFound);
 app.use(errorHandler);
