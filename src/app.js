@@ -3,12 +3,13 @@ const dotenv = require("dotenv/config");
 const path = require("path");
 const configureCors = require("./config/corsConfig");
 const helmet = require("helmet");
-const { errorHandler, routeNotFound } = require("./middlewares/errorHandler.js");
+const {
+  errorHandler,
+  routeNotFound,
+} = require("./middlewares/errorHandler.js");
 const authenticateToken = require("./middlewares/authMiddleware");
 
-
 const app = express();
-
 
 app.use(configureCors());
 app.use(express.json());

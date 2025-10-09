@@ -1,20 +1,37 @@
-const translationService = require("../service/translation");
+const translationService = require("../service/googleTranslate");
 
 const translationController = {
   translate: async (req, res, next) => {
     try {
       const { q, source, target, format } = req.body;
-      const result = await translationService.translate({ q, source, target, format });
-      return res.status(200).json({ success: true, data: result });
+
+      // Validate input early
+      if (!q || !target) {
+        return res.status(400).json({
+          success: false,
+          error: "Missing required fields: q and target",
+        });
+      }
+
+      const result = await translationService.translate({
+        q,
+        source,
+        target,
+        format,
+      });
+
+      return res.status(200).json({
+        success: true,
+        data: result,
+      });
     } catch (err) {
-      // Provide a clearer message for common misconfiguration
-      if (err.message && err.message.includes('Endpoint') && err.message.includes('returned HTML')) {
-        return res.status(502).json({ success: false, error: 'Translation provider returned HTML - check TRANSLATE_URL or use a supported API endpoint' });
-      }
-      if (err.message && err.message.includes('Visit https://portal.libretranslate.com')) {
-        return res.status(502).json({ success: false, error: 'Translation provider requires an API key. Set TRANSLATE_API_KEY or use another endpoint.' });
-      }
-      next(err);
+      console.error("❌ Translation error:", err);
+
+      // If Google returns an error
+      return res.status(err.status || 500).json({
+        success: false,
+        error: err.message || "Translation failed",
+      });
     }
   },
 };
