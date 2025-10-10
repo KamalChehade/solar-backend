@@ -2,5 +2,6 @@ node_modules/
  
 /src/uploads/
 .env
-/src/service/*.json
+src/service/*.json
+src/service/plucky-courier-451717-b7-f37cfd955173.json
  
