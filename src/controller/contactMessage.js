@@ -1,31 +1,48 @@
 const contactMessageService = require("../service/contactMessage");
 
-const getAllMessages = async (req, res, next) => {
-  try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const result = await contactMessageService.getAllMessages(page, limit);
-    res.status(200).json({
-      success: true,
-      message: "Contact messages retrieved successfully",
-      ...result,
+const createMessage = async (req, res, next) => {
+  const { name, email, phone, subject, message } = req.body;
+
+  if (!name || !email || !subject || !message) {
+    return res.status(400).json({
+      success: false,
+      message: "Name, email, subject, and message are required.",
     });
-  } catch (err) {
-    next(err);
   }
+
+  const newMessage = await contactMessageService.createMessage({
+    name,
+    email,
+    phone,
+    subject,
+    message,
+  });
+
+  res.status(201).json({
+    success: true,
+    message: "Message created successfully.",
+    data: newMessage,
+  });
+};
+
+const getAllMessages = async (req, res, next) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const result = await contactMessageService.getAllMessages(page, limit);
+  res.status(200).json({
+    success: true,
+    message: "Contact messages retrieved successfully",
+    ...result,
+  });
 };
 
 const deleteMessage = async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    await contactMessageService.deleteMessage(id);
-    res.status(200).json({
-      success: true,
-      message: "Message deleted successfully",
-    });
-  } catch (err) {
-    next(err);
-  }
+  const id = req.params.id;
+  await contactMessageService.deleteMessage(id);
+  res.status(200).json({
+    success: true,
+    message: "Message deleted successfully",
+  });
 };
 
-module.exports = { getAllMessages, deleteMessage };
+module.exports = { createMessage, getAllMessages, deleteMessage };

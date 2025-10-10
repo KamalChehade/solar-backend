@@ -1,5 +1,19 @@
 const { ContactMessage } = require("../models");
 
+const createMessage = async (data) => {
+  const { name, email, phone, subject, message } = data;
+
+  const newMessage = await ContactMessage.create({
+    name,
+    email,
+    phone: phone || null,
+    subject,
+    message,
+  });
+
+  return newMessage;
+};
+
 const getAllMessages = async (page = 1, limit = 10) => {
   const offset = (page - 1) * limit;
   const { count, rows } = await ContactMessage.findAndCountAll({
@@ -33,4 +47,4 @@ const deleteMessage = async (id) => {
   return true;
 };
 
-module.exports = { getAllMessages, deleteMessage };
+module.exports = { getAllMessages, deleteMessage, createMessage };

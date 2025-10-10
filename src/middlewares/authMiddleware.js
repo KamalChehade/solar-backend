@@ -4,7 +4,6 @@ const ExpressError = require("../utils/expressError");
 
 const authenticateToken = (req, res, next) => {
   const requestPath = req.path;
-
   // ✅ Allow if path matches or starts with any public path
   if (UNAUTHORIZED_PATHS.some((path) => requestPath.startsWith(path))) {
     return next();

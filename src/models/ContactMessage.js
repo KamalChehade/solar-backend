@@ -35,7 +35,7 @@ const ContactMessage = sequelize.define(
     },
   },
   {
-    timestamps: true, // ✅ Sequelize auto-adds createdAt & updatedAt
+    timestamps: true, 
     tableName: "contact_messages",
   }
 );

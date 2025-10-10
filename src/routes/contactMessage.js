@@ -3,10 +3,13 @@ const router = express.Router();
 const contactMessageController = require("../controller/contactMessage");
 const asyncHandler = require("express-async-handler");
 
-// GET /solar-api/contact-messages?page=1&limit=10
+// ✅ Create a new contact message
+router.post("/create", asyncHandler(contactMessageController.createMessage));
+
+// ✅ Get all contact messages (paginated)
 router.get("/", asyncHandler(contactMessageController.getAllMessages));
 
-// DELETE /solar-api/contact-messages/:id
+// ✅ Delete a specific message by ID
 router.delete("/:id", asyncHandler(contactMessageController.deleteMessage));
 
 module.exports = router;
