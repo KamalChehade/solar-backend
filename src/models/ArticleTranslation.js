@@ -35,6 +35,10 @@ const ArticleTranslation = sequelize.define(
       type: DataTypes.TEXT("long"),
       allowNull: false,
     },
+    author: {
+      type: DataTypes.STRING(255),
+      allowNull: true, // author name per translation
+    },
   },
   {
     tableName: "article_translations",

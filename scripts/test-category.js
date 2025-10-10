@@ -8,8 +8,7 @@ const svc = require('../src/service/category');
       { lang: 'ar', title: 'اختبار' }
     ];
   const r = await svc.create({ translations });
-  // no console.log as requested
-  }catch(e){
+   }catch(e){
     console.error('TEST ERROR', e);
   }
 })();

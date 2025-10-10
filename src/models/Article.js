@@ -19,10 +19,6 @@ const Article = sequelize.define(
       type: DataTypes.STRING(500),
       allowNull: true,
     },
-    author: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-    },
     categoryId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -34,11 +30,14 @@ const Article = sequelize.define(
     published_date: {
       type: DataTypes.DATE,
       allowNull: true,
+      field: "published_date",  
     },
     reading_time: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      field: "reading_time",
     },
+
     created_by_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -54,7 +53,7 @@ const Article = sequelize.define(
   }
 );
 
-// Associations
+
 Article.belongsTo(Category, { foreignKey: "categoryId", as: "category" });
 Category.hasMany(Article, { foreignKey: "categoryId", as: "articles" });
 

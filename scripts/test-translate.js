@@ -4,8 +4,7 @@ require('dotenv').config();
   const svc = require('../src/service/translation');
   try {
   const r = await svc.translate({ q: 'translate', source: 'en', target: 'ar', format: 'text' });
-  // success - no console.log as requested
-  } catch (e) {
+   } catch (e) {
     console.error('ERROR MESSAGE:', e.message);
     if (e.status) console.error('STATUS:', e.status);
     if (e.body) {

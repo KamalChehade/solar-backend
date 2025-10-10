@@ -31,8 +31,7 @@ const payload = { q: 'translate', source: 'en', target: 'ar', format: 'text' };
       });
   const ct2 = resp2.headers.get('content-type') || '';
   const txt2 = await resp2.text().catch(() => '');
-  // no console.log output as requested
-    } catch (e) {
+     } catch (e) {
       console.error('FORM POST ERROR', e.message);
     }
   }
